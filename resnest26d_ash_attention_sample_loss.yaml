@@ -1,0 +1,54 @@
+
+
+output_dir: "./metrics"
+
+seed: 42
+
+train_bs: 68
+valid_bs: 128
+workers: 6
+
+progress_bar_refresh_rate: 1
+
+early_stop:
+    monitor: "val_loss"
+    mode: "min"
+    patience: 5
+    verbose: 1
+
+trainer:
+    max_epochs: 30
+    min_epochs: 24
+    enable_progress_bar: True
+    precision: "16-mixed"
+    devices: 1
+
+model:
+    alpha: -1.0
+    beta: -1.0
+    alpha_union: -1.0
+    beta_union: -1.0
+    weight_union: -1.0
+    weight_ground_truth: -1.0
+    seg_model: "Unet"
+    encoder_name: "timm-resnest26d"
+    encoder_depth: 5
+    loss_smooth: 1.0
+    decoder_attention_type: "scse"
+    image_size: 384
+    optimizer_params:
+        lr: 0.0005
+        weight_decay: 0.0
+        eps: 1.0e-6
+    scheduler:
+        name: "CosineAnnealingLR"
+        params:
+            CosineAnnealingLR:
+                T_max: 2
+                eta_min: 1.0e-6
+                last_epoch: -1
+            ReduceLROnPlateau:
+                mode: "min"
+                factor: 0.31622776601
+                patience: 4
+                verbose: True
