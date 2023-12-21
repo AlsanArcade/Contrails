@@ -1,1 +1,2 @@
-![ground truth](ground_truth.png)
+### The project presentation can be found in the presentation.ipynb file
+
